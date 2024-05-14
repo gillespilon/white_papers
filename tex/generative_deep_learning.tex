@@ -1,0 +1,289 @@
+% this is the beginning of the preamble section
+% the next line must always be first line of a <path.tex> document
+\documentclass[10pt, letterpaper, twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[sfdefault]{noto}
+\setlength{\textwidth}{6in}
+\setlength{\textheight}{9in}
+\setlength{\topmargin}{-1in}
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+% this package has better control of title, author elements
+\usepackage{titling}
+% edit the following line for the title of the article
+\title{Generative Deep Learning}
+% edit the following line for the author of the article
+\author{Gilles Pilon}
+\setlength{\droptitle}{-8pt}
+\pretitle{\begin{flushleft}\LARGE\bfseries}
+\posttitle{\par\end{flushleft}}
+\preauthor{\begin{flushleft}\normalsize}
+\postauthor{\end{flushleft}}
+\predate{\begin{flushleft}\small}
+\postdate{\end{flushleft}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\raggedbottom
+% this package has better control over the date format
+\usepackage{datetime2}
+% edit the following line to fix the data if you do not want it automatic
+\date{\today}
+% this package has better control over floats
+\usepackage{float}
+% this package has better control over images
+\usepackage{graphicx}
+\graphicspath{{fot/}}
+\usepackage[export]{adjustbox}
+\usepackage[singlelinecheck=false,justification=justified]{caption}
+% very useful for mathematics
+\usepackage{amsmath, amsthm, amssymb}
+% required for bibtex URLs, very useful for hyperlinks
+\usepackage{url}
+% required for 8 bit fonts 256 glyphs
+\usepackage[T1]{fontenc}
+% useful for Greek letters in text mode
+\usepackage[cbgreek]{textgreek}
+% to create a list of equations
+\usepackage{tocloft}
+\setlength{\cfttabindent}{0in}
+\setlength{\cftfigindent}{0in}
+% used to create tables
+\usepackage{booktabs}
+\usepackage{multirow}
+% minted for code listings
+\usepackage{minted}
+% use this package for better control over quotes
+\usepackage{csquotes}
+\usepackage[unicode]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=magenta,
+    citecolor=green
+}
+% useful for the bibliography
+\usepackage[style=authoryear]{biblatex}
+\addbibresource{~/documents/repositories/latex/pilon_gilles_bibliography.bib}
+% useful for the glossary
+\usepackage[toc, acronym, nopostdot, numberedsection, record=hybrid, shortcuts=ac, abbreviations]{glossaries-extra}
+\makeglossaries
+\GlsXtrLoadResources[
+    src={../repositories/latex/pilon_gilles_glossary.bib},
+    selection={recorded and deps},
+    sort=letter-nocase
+]
+% define theorem-like elements
+% \theoremstyle{myenv}
+% \theoremstyle{mytheorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{axiom}[theorem]{Axiom}
+% \theoremstyle{mydefinition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\makeatletter
+\@addtoreset{theorem}{section}
+\makeatother
+% set no indent for lists
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+% create a list of equations command
+\newcommand{\listequationsname}{List of Equations}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+\renewcommand{\cftequtitlefont}{\normalfont\Large\bfseries}
+% create a list of Greek letters command
+\newcommand{\listgreekname}{List of Greek Letters}
+\newlistof{mygreek}{grk}{\listgreekname}
+\newcommand{\mygreek}[1]{%
+\addcontentsline{grk}{mygreek}{\protect\numberline{\thegreek}#1}\par}
+\renewcommand{\cftgrktitlefont}{\normalfont\Large\bfseries}
+% create a list of theorems command
+\newcommand{\listtheoremsname}{List of Theorems}
+\newlistof{mytheorems}{thm}{\listtheoremsname}
+\newcommand{\mytheorems}[1]{%
+\addcontentsline{thm}{mytheorems}{\protect\numberline{\thetheorem}#1}\par}
+\renewcommand{\cftthmtitlefont}{\normalfont\Large\bfseries}
+% create a list of definitions command
+\newcommand{\listdefinitionsname}{List of Definitions}
+\newlistof{mydefinitions}{def}{\listdefinitionsname}
+\newcommand{\mydefinitions}[1]{%
+\addcontentsline{def}{mydefinitions}{\protect\numberline{\thedefinition}#1}\par}
+\renewcommand{\cftdeftitlefont}{\normalfont\Large\bfseries}
+% create a list of corollaries command
+\newcommand{\listcorollariesname}{List of Corollaries}
+\newlistof{mycorollaries}{cor}{\listcorollariesname}
+\newcommand{\mycorollaries}[1]{%
+\addcontentsline{cor}{mycorollaries}{\protect\numberline{\thecorollary}#1}\par}
+\renewcommand{\cftcortitlefont}{\normalfont\Large\bfseries}
+% create a list of lemmas command
+\newcommand{\listlemmasname}{List of Lemmas}
+\newlistof{mylemmas}{lem}{\listlemmasname}
+\newcommand{\mylemmas}[1]{%
+\addcontentsline{lem}{mylemmas}{\protect\numberline{\thelemma}#1}\par}
+\renewcommand{\cftlemtitlefont}{\normalfont\Large\bfseries}
+% create a list of propositions command
+\newcommand{\listpropositionsname}{List of Propositions}
+\newlistof{mypropositions}{prop}{\listpropositionsname}
+\newcommand{\mypropositions}[1]{%
+\addcontentsline{prop}{mypropositions}{\protect\numberline{\theproposition}#1}\par}
+\renewcommand{\cftproptitlefont}{\normalfont\Large\bfseries}
+% useful for epigraphs
+\usepackage{epigraph}
+% this is the end of the preamble section
+\begin{document}
+\maketitle
+% section quote
+\renewcommand{\epigraphflush}{flushleft}
+\renewcommand{\textflush}{flushleft}
+\renewcommand{\sourceflush}{flushleft}
+\epigraph{Improving life one Python script at a time}{Gilles Pilon}
+% section contents
+\newpage
+\tableofcontents
+\newpage
+
+% section abstract
+\section{Abstract}\label{sec:abstract}
+Just as mastering the science behind cooking empowers chefs to innovate in the kitchen, understanding generative deep learning unlocks a world of creative possibilities. Generative models are not just about following pre-built recipes; they are about using knowledge of algorithms and data to push boundaries. By understanding how these models learn from vast datasets and identify patterns, we can guide them to generate entirely new content, from creating never-before-seen images to composing novel music pieces. We will delve deeper into the exciting world of generative deep learning and its potential to revolutionize various fields of visual media, music and audio, drug discovery, materials science, engineering and design, and personal creativity, to help everyone learn and improve.
+
+% section preface
+\section{Preface}
+I am a Python developer and data scientist. I started my career as a process engineer in aluminum rolling mills, transitioned to data science in the food industry, and then to artificial intelligence and machine learning.
+
+% section generative deep learning
+\section{Generative Deep Learning}\label{sec:generative_deep_learning}
+There are two core concepts to understanding generative deep learning: generative modeling and deep learning.
+
+% subsection generative modeling
+\subsection{Generative Modeling}\label{sec:generative_modeling}
+
+\enquote{Generative modeling is a branch of machine learning that involves training a model to produce new data that is similar to a given dataset.} (\cite[4]{foster_david_2023})
+
+\textbf{Discriminative modeling}
+
+\textit{Analogy} Imagine you are training a group of people to recognize the plays and poems written by William Shakespeare. You have a dataset of all of his works, as well as many works by many other authors. Each work in your dataset that was written by Shakespeare would be labeled with a 1 and all other works would be labeled with a 0. The group would learn that certain words, phrases, and styles are more likely to indicate that a work was written by Shakespeare. In supervised machine learning an algorithm learns from labeled data, called the training data, to make predictions or classifications. The group learns how to discriminate between these two groups (1, 0) and determines the probability that a new document shown to the group has a label of 1, that is, a work that was created by Shakespeare. This is called discriminative modeling.
+
+\textbf{Generative modeling}
+
+\textit{Analogy} Imagine your training dataset contains only the works of William Shakespeare. Each work is called an observation. Each observation has many features, such as individual words or groups of letters. You train a generative model on this dataset to determine the rules of the complex relationships between the words in the works of Shakespeare. Now you can sample from this model to create new, realistic plays or poems that did not exist in the dataset, but look like they were created using the same rules as the original data. A generative model must also be probabilistic. We sample many different variations of the output; we do not get the same output every time, as we would with a discriminative model. A generative model has a random component that influences the outputs generated by the discriminative model. We want our model to generate new observations that look as if they were from the training dataset.
+
+A discriminative model is easier to create, less demanding on the software and hardware, and has many use cases for solving problems. A model created to optimize the components of a industrial mixture is beneficial in a setting where the variability of the components changes constantly. A model to determine if a cancer is present in an image can speed up diagnosis. It is much easier to train a model to predict if a text file was written by a famous author or if an image was painted by a famous artist, than it is to build a model to generate text resembling that author or to create an image that resembles the artist. In the last decade software librairies have improved, new ones created, and hardware to solve specific computations in machine learning process data faster.
+
+\textbf{Generative modeling framework} This is a structure of our goals for our generative model. (\cite[10-11]{foster_david_2023})
+\begin{itemize}
+    \item{\textbf{Training data} Gather a dataset of observations that were generated according to an unknown distribution.}
+    \item{\textbf{Modeling} Build a generative model that mimics the unknown distribution and sample from the generative model to generate observations that appear to have come from the unknown distribution.}
+    \item{\textbf{Accuracy} Determine the accuracy of the generative model. A high accuracy means that a generative observation looks like it came from the unknown distribution.}
+    \item{\textbf{Generation} It should be easy to sample a new observation from the generative model.}
+    \item{\textbf{Representation} It should be possible to understand the high-level features in the dataset of observations are represented by the generative model. Each observation in the training data is described (mapped) using a lower-dimensional latent space.}
+\end{itemize}
+
+\subsection{Deep Learning}\label{sec:deep_learning}
+\enquote{Deep learning is a class of machine learning algorithms that uses multiple stacked layers of processing units to learn high-level representations from unstructured data.} (\cite[23]{foster_david_2023})
+
+\textbf{Structured data} These data are organized in a predefined format, like rows and columns in a spreadsheet.  Supervised learning algorithms excel at finding patterns in these data because the features are well-defined. Many machine learning algorithms require structured data.
+
+\textbf{Unstructured data} These data lack a predefined format,  like text , images, or videos. These data may have a spatial structure (image), a temporal structure (audio, text), or both a spatial and temporal structure (video). The individual observations (pixels, letters, frequencies, etc.) are very uninformative, that is, the data are granular. Various algorithms perform poorly with such granular data and the spatial or temporal structure. Deep learning is especially useful for unstructured data.
+
+Deep learning is performed with any system that employs many layers to learn high-level representations of the training data. Most deep learning uses artificial neural networks that have multiple stacked hidden layers. Each layer contains units that are connected to the previous layer through a set of weights. The most common type of layer is the fully connected layer (also known as the dense layer) which means every unit in a layer is directly connected to every unit in the previous layer. There are several types of artificial neural networks. We will consider the multilayer perceptrons and the convolutional neural network.
+
+\textbf{Multilayer perceptrons (MLP)} All adjacent layers are fully connected. The input is transformed by each layer in turn until it reaches the output layer. Each unit applies a transformation to its inputs and passes the output to the next layer. A single unit in the final layer outputs the probability that the original input belongs to a specific category. The transformation involves a weighted sum of the inputs. The deep neural network finds the set of weights for each layer by training the network. Text, audio, or images are processed through the network and the predicted outputs are compared to the truth. If there are errors in the prediction these are propagated backward through the network and the weights are adjusted to find those which improve the prediction; this is called backpropagation. An artificial neural network learns features from the training data without human guidance in order to minimize the prediction error.
+
+\textbf{Convulational neural network (CNN)} This type of neural network takes into account the spatial structure of the training data. This is particularly useful for images. The image is converted to a single vector before passing it to the dense layer. A convolution is a mathematical operation of sliding a filter across the input data (typically an image) and performing element-wise multiplication. The result is a new value that captures how well the filter matches the features in a specific region of the input. A convolutional layer takes the input and applies convolutions with multiple filters to generate feature maps. It is a collection of filters and the values stored in the filters are the weights learned through training. Each filter in the layer detects a specific feature in the input data. By stacking multiple convolutional layers, a CNN can learn increasingly complex features from the input image, ultimately leading to object recognition or other image analysis tasks.
+
+% section methods of generative modeling
+\section{Methods of Generative Modeling}\label{sec:methods_generative_modeling}
+
+Before delving into the methods of generative modeling, there is one key concept to understand. A \textbf{probability density function} is used to specify the probability of a random variable falling within a particular range of values, as opposed to taking on any one value. Instead of a single guess, the model provides a range of possibilities with their corresponding likelihoods.
+
+There are two different approaches of generative modeling:
+
+\textbf{Implicit density models} These produce a random (also called stochastic) process of generating data. These models do not calculate the probability density function.
+
+\textbf{Explicit density models} These constrain the model-building process so that the probability density function is easier to calculate.
+
+% section generative adversarial networks gan
+\subsection{Generative Adversarial Networks (GAN)}\label{sec:generative_adversarial_networks}
+
+This is an implicit density model. A GAN is a battle between two adversaries. Imagine you have two art \textit{specialists}, one a talented counterfeiter (generator) and the other an art critic (discriminator). They are locked in an artistic battle.
+
+The counterfeiter (generator) keeps creating new forgeries, trying to mimic the style of famous artists (data). The critic (discriminator) examines each forgery and tries to determine if it is a real painting or a fake. Over time, the counterfeiter gets better at creating convincing fakes, while the critic becomes a sharper judge. This competition pushes both to improve. The counterfeiter learns the subtleties of the artist’s style, and the critic hones their ability to detect even the most minor discrepancies.
+
+This is how a GAN works. One neural network (generator) creates new data (like images or music) based on training data. The other network (discriminator) tries to distinguish the generated data from real data. Through this adversarial process, the generator becomes adept at producing data that closely resembles the real thing, while the discriminator keeps the generator on its toes by constantly improving its detection abilities. This makes GANs powerful tools for generating new, realistic data for various applications, from creating new images to composing novel music pieces. They constantly push the boundaries of what artificial intelligence can create, blurring the lines between the artificial and the real.
+
+% section variational autoencoders vae
+\subsection{Variational Autoencoders (VAE)}\label{sec:variational_encoders}
+
+This is an explicit density model. VAEs can be thought of as artistic compressors. Imagine you have a box filled with different kinds of toys (training data), and you want to compress them into a smaller box (latent space) while still being able to recreate them (generate new toys) later.
+
+A regular autoencoder would simply shrink the toys down and then try to inflate them back to their original size. This process is messy and the resulting toys might be blurry or miss some details.
+
+A variational autoencoder is more sophisticated. It encodes the toys into a special kind of compressed space that not only captures their size but also some of their key features. It is like having a box filled with colored blocks (latent space) where each block represents a specific type of toy (a red block for cars, a blue block for dolls, a green block for plush toys). By sampling from this box of blocks and using a decoder, a VAE can generate new, never-before-seen toys that share characteristics with the originals. This makes them useful for tasks like creating realistic images of faces or coming up with new music samples that fit a particular style.
+
+% section energy-based models
+\subsection{Energy-based Models (EBM)}\label{sec:energy_based_models}
+
+This is an explicit density model. EBMs are like happiness detectors for data. Imagine a landscape with hills and valleys, where the height of the ground represents the model’s "energy" for a particular data point. Data points that fit the model well (real or desirable) would be in valleys with low energy. Data points that do not fit (outliers or noise) would be on hills with high energy.
+
+The core idea of EBMs is to define a function that assigns an energy score to every possible data point. The model then learns to adjust this function so that low energy regions correspond to the kind of data it is trying to model. Think of it like sculpting a clay model. You keep smoothing the clay (adjusting the energy function) to create a landscape with deep valleys where you want the features of your model to reside. Data points that land in these valleys are considered likely or desirable by the model.
+
+EBMs are a powerful tool for creating realistic images or music. By sampling data points from low energy regions, they can produce new data that adheres to the patterns learned from the training data. Additionally, their probabilistic nature allows them to estimate the likelihood of any generated data point.
+
+% section diffusion models
+\subsection{Diffusion Models}\label{sec:diffusion_models}
+
+This is an explicit density model. Imagine you have a clear image and slowly add random noise to it, making it increasingly blurry and unrecognizable over time. This \textit{noise addition process} is essentially what a diffusion model does in reverse.
+
+The model is first trained on real data by learning this \textit{noise addition process.} It essentially learns how to corrupt clear images with controlled noise step-by-step. Then, to generate new data, the model starts with pure noise and reverses this corruption process one step at a time. Think of it like slowly removing fog from a landscape photo. With each step, the model removes some noise, revealing more and more details of the underlying image. By learning the process of adding noise, the model can learn how to remove it effectively, ultimately creating a brand new image that resembles the training data.
+
+Diffusion models are particularly adept at capturing complex structures and realistic details in data like images or audio. Their ability to learn the data distribution through a denoising process makes them powerful tools for various generative tasks.
+
+% section autoregressive models
+\subsection{Autoregressive Models}\label{sec:autoregressive_models}
+
+This is an explicit density model. An autoregressive model is like a mathematical equation that takes a series of past values as inputs and outputs a prediction for the next value in the sequence. By analyzing historical data, the model learns these underlying patterns and uses them for forecasting. Autoregressive models are like fortune tellers who predict the future based on the past. Imagine a fortune teller who uses tarot cards (past data points) to predict your upcoming week (future outcomes). They analyze the cards you draw (past values) and based on the patterns they have seen before (relationships between past and future events), make predictions about your future (future values).
+
+In statistics and machine learning, autoregressive models use past values of a time series to predict the next one. They are particularly useful for data that exhibits some dependence on its history, like stock prices or weather patterns. However, autoregressive models have limitations. Just like a fortune teller cannot predict everything, these models can struggle with significant changes or unexpected events. They assume the future will resemble the past to some extent, which might not always be true.
+
+% section normalizing flow models
+\subsection{Normalizing Flow Models}\label{sec:normalizing_flow_models}
+
+This is an explicit density model. Imagine you have a simple distribution of data, like a bunch of balls clustered in the center of a sandbox (latent space). A normalizing flow model can transform this simple distribution into a more complex one, like sculpting the sandbox into intricate shapes (complex data). Think of it as a flexible mold. You can start with a simple shape and keep applying transformations to create more intricate and varied forms, all while maintaining the ability to go back to the original shape if needed. This makes normalizing flow models powerful for generating realistic and diverse data while providing valuable insights into the probability of the generated data.
+
+The normalizing flow model achieves this by applying a series of reversible functions, like pushing and pulling the sand with tools. Each function modifies the distribution in a controlled way, gradually shaping it into the desired form. The key here is that these functions are invertible, so you can always reverse the steps to get back to the original distribution. This invertibility is crucial because it allows the model to not only generate new data points (like scooping out new shapes in the sandbox) but also efficiently calculate the probability of any data point it generates. This makes normalizing flows attractive for tasks where understanding the likelihood of generated data is important.
+
+% section deep learning software
+\section{Deep Learning Software}\label{sec:deep_learning_software}
+
+Creating generative deep learning models requires powerful, feature-rich software frameworks. \Gls{tensorflow} (\cite{tensorflow}) with \Gls{keras} (\cite{keras}) are exceptionally good Python packages.
+
+% section tensorflow
+\subsection{TensorFlow}\label{sec:tensorflow}
+
+It is an open-source software package for machine learning and artificial intelligence. It can be used across a range of tasks but has a particular focus on training and inference of deep neural networks. (\cite{tensorflow})
+
+\subsection{Keras}\label{sec:keras}
+
+It is open-source software for deep learning with a  high-level application programming interface (API) that makes it very simple to train and run artificial neural networks. It provides numerous methods that can be combined to create very complex deep learning applications. It runs on top of TensorFlow and other packages. (\cite{keras})
+
+\newpage
+% section abbreviations
+\printunsrtglossary[type={abbreviations}]
+\newpage
+% section glossary
+\printunsrtglossary[style={indexgroup}]
+\newpage
+% section references
+\section{References}\label{sec:references}
+\printbibliography[heading=none]
+\end{document}
+\begin{biography}Gilles Pilon\end{biography}
