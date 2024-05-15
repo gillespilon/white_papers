@@ -65,10 +65,10 @@
 \usepackage[style=authoryear]{biblatex}
 \addbibresource{~/documents/repositories/latex/pilon_gilles_bibliography.bib}
 % useful for the glossary
-\usepackage[toc, acronym, nopostdot, numberedsection, record=hybrid, shortcuts=ac, abbreviations]{glossaries-extra}
+\usepackage[toc, acronym, nopostdot, numberedsection, record=hybrid, abbreviations]{glossaries-extra}
 \makeglossaries
 \GlsXtrLoadResources[
-    src={../repositories/latex/pilon_gilles_glossary.bib},
+    src={../../latex/pilon_gilles_glossary.bib},
     selection={recorded and deps},
     sort=letter-nocase
 ]
@@ -148,7 +148,10 @@
 \epigraph{Improving life one Python script at a time}{Gilles Pilon}
 % section abstract
 \section*{Abstract}
-\Gls{rpa} uses software robots to handle repetitive computer tasks. These include things like moving data between applications, filling out forms, sending emails, handling a long list of repetitive actions within a program such as \Gls{sap} and \Gls{windowspowerbi} (\cite{windowspowerbi}), and extracting data from online applications. \glsxtrshort{rpa} interacts with different computer programs just like a human would, but much faster and more accurately. \Gls{rpa} frees up employees to focus on more complex work and improve accuracy, efficiency, and productivity. This article presents several approaches and examples of \Gls{rpa}.
+\Gls{rpa} uses \glspl{softwarerobot} to handle repetitive computer tasks. These include things like moving data between applications, filling out forms, sending emails, handling a long list of repetitive actions within a program such as \Gls{sap} and \Gls{windowspowerbi} (\cite{windowspowerbi}), and extracting data from online applications. \glsxtrshort{rpa} interacts with different computer programs just like a human would, but much faster and more accurately. \Gls{rpa} frees up employees to focus on more complex work and improve accuracy, efficiency, and productivity. This article presents several approaches and examples of \Gls{rpa}.
+
+\MakeCapital{bob the knob} and \MakeSentenceCase{bob the knob} \capitalisewords{bob the knob}.
+
 % section contents
 \newpage
 \tableofcontents
@@ -157,10 +160,10 @@
 \section{Introduction}\label{sec:introduction}
 \Gls{rpa} provides several benefits:
 \begin{itemize}
-    \item{Automation of repetitive tasks to save time and money}
+    \item{Automation of repetitive tasks to save time and effort}
     \item{Customization of specific needs}
     \item{Efficiency of a single code script to perform complex workflows}
-    \item{Repeatability for consistent execution of tasls}
+    \item{Increase accuracy by eliminating human error by consistent, repeatable execution of tasks}
 \end{itemize}
 % python libraries for rpa
 \section{Python libraries, scripts, and shell scripts for RPA}\label{sec:python_libraries_scripts_shell_scripts_for_rpa}
@@ -174,7 +177,31 @@ These are a few of many possibilities for implementing \Gls{rpa}.
 \end{itemize}
 % subsection pyautogui
 \subsection{PyAutoGUI}\label{sec:pyautogui}
-\enquote{\Gls{pyautogui} lets your \Gls{python} scripts control the mouse and keyboard to automate interactions with other applications. The API is designed to be simple. \Gls{pyautogui} works on Windows, macOS, and Linux, and runs on \Gls{python} 2 and 3.} (\cite{pyautogui})
+\enquote{\Gls{pyautogui} lets your \glspl{pythonscript} control the mouse and keyboard,  and interact with dialogues, to automate interactions with other applications that a user would perform manually. The API is designed to be simple. \Gls{pyautogui} works on Windows, macOS, and Linux, and runs on \Gls{python} 2 and 3.} (\cite{pyautogui})
+
+\Gls{pyautogui} has many benefits:
+\begin{itemize}
+    \item{Eliminate human errors}
+    \item{Increase productivity}
+    \item{Increase accuracy}
+    \item{Reduce costs}
+    \item{Scalable to complex workflows}
+\end{itemize}
+\Gls{pyautogui} has many capabilities:
+\begin{itemize}
+    \item{Keyboard control}
+    \item{Mouse control}
+    \item{Display message boxes (alert, confirm, prompt, password, ...}
+    \item{Screen shot functions}
+\end{itemize}
+
+\Gls{pyautogui} has a few limitations:
+\begin{itemize}
+    \item{Dependency onf screen resolution}
+    \item{Limited to visible elements}
+    \item{Complexity in dynamic \glspl{gui}}
+\end{itemize}
+
 % subsection shell script
 \subsection{shell script}\label{sec:shell_script}
 A \gls{shellscript} is a plain text file of commands that is executed on a computer terminal, also known as a shell. Linux (BaSH \cite{bash}, zsh \cite{zsh}), Mac (zsh \cite{zsh}), and \Gls{windowspowershell} (\cite{windowspowershell}) can easily execute \glspl{shellscript}. \Gls{windowspowershell} offers similar functionality and has its own syntax for the commands.
@@ -361,7 +388,7 @@ cd fol
 \end{footnotesize}
 % subsection automate sap report
 \subsection{Automate SAP report (PyAutoGUI)}\label{sec:automate_sap_report}
-An \Gls{sap} user will be granted access to various reports and portions of the \Gls{sap} warehouse. If a user needs data extracted from a report, and is not trained in how to create one, it often takes a long time to get a report written and made available in the user's profile. An alternative is to mimic the mouse and keyboard movements of manually access an existing report to extract and compile the data required. The following \Gls{python} script logs into \Gls{sap}, navigates to a specific report, extracts the data for multiple prior months, and saves the data in csv files in a particular directory for further processing. This script is easily scheduled with \Gls{windowstaskscheduler}.
+An \Gls{sap} user will be granted access to various reports and portions of the \Gls{sap} warehouse. If a user needs data extracted from a report, and is not trained in how to create one, it often takes a long time to get a report written and made available in the user's profile. An alternative is to mimic the mouse and keyboard movements of manually access an existing report to extract and compile the data required. The following \Gls{pythonscript} logs into \Gls{sap}, navigates to a specific report, extracts the data for multiple prior months, and saves the data in csv files in a particular directory for further processing. This script is easily scheduled with \Gls{windowstaskscheduler}.
 \begin{footnotesize}
 \begin{minted}{python}
 #! /usr/bin/env python3
@@ -570,7 +597,7 @@ if __name__ == '__main__':
 \end{footnotesize}
 % subsection automate data extract power bi
 \subsection{Automate data extraction from Power BI (PyAutoGUI)}\label{sec:automate_data_extraction_from_power_bi}
-A \Gls{windowspowerbi} (\cite{windowspowerbi}) user does not normally have access to the data behind the reports. If a user needs data extracted from a report, it often takes a long time to get a report written and made available in the \Gls{windowspowerbi} report. An alternative is to mimic the mouse and keyboard movements of manually access an existing report to extract and compile the data required. The following \Gls{python} script creates a csv file from a \Gls{windowspowerbi} dashboard. This script is easily scheduled with \Gls{windowstaskscheduler}.
+A \Gls{windowspowerbi} (\cite{windowspowerbi}) user does not normally have access to the data behind the reports. If a user needs data extracted from a report, it often takes a long time to get a report written and made available in the \Gls{windowspowerbi} report. An alternative is to mimic the mouse and keyboard movements of manually access an existing report to extract and compile the data required. The following \Gls{pythonscript} creates a csv file from a \Gls{windowspowerbi} dashboard. This script is easily scheduled with \Gls{windowstaskscheduler}.
 \begin{footnotesize}
 \begin{minted}{python}
 #! /usr/bin/env python3
