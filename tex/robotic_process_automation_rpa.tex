@@ -250,7 +250,7 @@ from pathlib import Path
 import time
 
 import pyautogui as pyg
-import datasense as ds
+import dawgdad as dd
 
 
 def main():
@@ -266,12 +266,12 @@ def main():
     header_title = 'email demonstration'
     output_url = 'email_demo.html'
     header_id = 'email_demo'
-    original_stdout = ds.html_begin(
+    original_stdout = dd.html_begin(
         output_url=output_url,
         header_title=header_title,
         header_id=header_id
     )
-    ds.script_summary(
+    dd.script_summary(
         script_path=Path(__file__),
         action='started at'
     )
@@ -326,18 +326,18 @@ def main():
     pyg.keyUp('alt')
     print('emails sent to:')
     print()
-    ds.print_list_by_item(list=emails)
+    dd.print_list_by_item(list=emails)
     print()
     stop_time = time.perf_counter()
-    ds.script_summary(
+    dd.script_summary(
         script_path=Path(__file__),
         action='finished at'
     )
-    ds.report_summary(
+    dd.report_summary(
         start_time=start_time,
         stop_time=stop_time
     )
-    ds.html_end(
+    dd.html_end(
         original_stdout=original_stdout,
         output_url=output_url
     )
@@ -358,10 +358,10 @@ A workgroup often requires access to one or more code repositories, even if they
 echo
 # change path to home directory
 cd ~/
-# update datasense
-echo 'update datasense repository'
+# update dawgdad
+echo 'update dawgdad repository'
 echo
-pip install --user --upgrade -e "git+https://github.com/gillespilon/datasense#egg=datasense"
+pip install --upgrade dawgdad
 # update packages
 echo
 echo 'update required Python packages'
@@ -420,7 +420,7 @@ import time
 
 from dateutil.relativedelta import relativedelta
 import pyautogui as pyg
-import datasense as ds
+import dawgdad as dd
 
 
 def main():
@@ -435,12 +435,12 @@ def main():
     header_id = 'sap-spend-report'
     number_months_prior_start = 1
     number_months_prior_end = 1
-    original_stdout = ds.html_begin(
+    original_stdout = dd.html_begin(
         output_url=output_url,
         header_title=header_title,
         header_id=header_id
     )
-    ds.script_summary(
+    dd.script_summary(
         script_path=Path(__file__),
         action='started at'
     )
@@ -466,7 +466,7 @@ def main():
         )
         print('Started:', path_output_file)
         # quit SAP and Excel
-        ds.quit_sap_excel()
+        dd.quit_sap_excel()
         start_time_1 = time.perf_counter()
         # open SAP > BWP report
         subprocess.Popen(sap_process)
@@ -573,17 +573,17 @@ def main():
         )
         print()
     # quit SAP and Excel
-    ds.quit_sap_excel()
+    dd.quit_sap_excel()
     stop_time_2 = time.perf_counter()
-    ds.script_summary(
+    dd.script_summary(
         script_path=Path(__file__),
         action='finished at'
     )
-    ds.report_summary(
+    dd.report_summary(
         start_time=start_time_0,
         stop_time=stop_time_2
     )
-    ds.html_end(
+    dd.html_end(
         original_stdout=original_stdout,
         output_url=output_url
     )
@@ -627,7 +627,7 @@ import webbrowser
 import time
 
 import pyautogui as pyg
-import datasense as ds
+import dawgdad as dd
 import pandas as pd
 
 
@@ -678,12 +678,12 @@ def main():
     combinations = [
         (mg, month) for mg in material_group_number for month in months
     ]
-    original_stdout = ds.html_begin(
+    original_stdout = dd.html_begin(
         output_url=output_url,
         header_title=header_title,
         header_id=header_id
     )
-    ds.script_summary(
+    dd.script_summary(
         script_path=Path(__file__),
         action='started at'
     )
@@ -700,11 +700,11 @@ def main():
         deselect_material_group()
     # create list of paths, sorted newest to oldest modification time
     files_in_downloads = sorted(
-        ds.list_files(
+        dd.list_files(
             directory=path_files,
             patterns=extensions
         ),
-        key=ds.get_mtime,
+        key=dd.get_mtime,
         reverse=False
     )[-number_files_created:]
     print_file_size(files=files_in_downloads)
@@ -712,7 +712,7 @@ def main():
     dfs = pd.DataFrame()
     for file, (x, y) in zip(files_in_downloads, combinations):
         # create individual DataFrames
-        df = ds.read_file(
+        df = dd.read_file(
             file_name=file,
             skiprows=[0, 1]
         ).rename(columns=rename_columns_initially)
@@ -727,7 +727,7 @@ def main():
     # remove rows where Vendor contains '-'
     dfs = dfs.loc[~dfs['Vendor'].str.contains(pat='-', na=False)]
     # create final file
-    ds.save_file(
+    dd.save_file(
         df=dfs,
         file_name=Path(path_final_file)
     )
@@ -735,15 +735,15 @@ def main():
     for file in files_in_downloads:
         Path(file).unlink(missing_ok=True)
     stop_time = time.perf_counter()
-    ds.script_summary(
+    dd.script_summary(
         script_path=Path(__file__),
         action='finished at'
     )
-    ds.report_summary(
+    dd.report_summary(
         start_time=start_time,
         stop_time=stop_time
     )
-    ds.html_end(
+    dd.html_end(
         original_stdout=original_stdout,
         output_url=output_url
     )
@@ -900,7 +900,7 @@ from pathlib import Path
 from os import chdir
 import time
 
-import datasense as ds
+import dawgdad as dd
 import pandas as pd
 
 
@@ -916,10 +916,10 @@ def main():
     header_id = "country-codes-names-domains"
     path_file_out = Path("country_codes.csv")
     drop_columns = ["Year", "Notes"]
-    original_stdout = ds.html_begin(
+    original_stdout = dd.html_begin(
         output_url=output_url, header_title=header_title, header_id=header_id
     )
-    ds.script_summary(script_path=Path(__file__), action="started at")
+    dd.script_summary(script_path=Path(__file__), action="started at")
     # create DataFrame from Wikipedia table
     data = (
         pd.DataFrame(
@@ -933,17 +933,17 @@ def main():
         .set_axis(labels=column_labels, axis="columns")
     )
     # save DataFrame as csv file
-    ds.save_file(df=data, file_name=path_file_out)
+    dd.save_file(df=data, file_name=path_file_out)
     print(data)
     print()
     stop_time = time.perf_counter()
-    ds.script_summary(script_path=Path(__file__), action="finished at")
-    ds.report_summary(
+    dd.script_summary(script_path=Path(__file__), action="finished at")
+    dd.report_summary(
         start_time=start_time,
         stop_time=stop_time,
         save_file_names=path_file_out.resolve(),
     )
-    ds.html_end(original_stdout=original_stdout, output_url=output_url)
+    dd.html_end(original_stdout=original_stdout, output_url=output_url)
 
 
 if __name__ == "__main__":
@@ -951,11 +951,11 @@ if __name__ == "__main__":
 \end{minted}
 \end{footnotesize}
 \newpage
-% section datasense
-\section{datasense}\label{sec:datasense}
-\href{https://github.com/gillespilon/datasense}{datasense} (\cite{datasense}) is a \Gls{python} package for statistical, graphical, and predictive analysis. Instructions on how to use datasense are provided in relevant sections of this document. To use datasense, install a \Gls{python} distribution appropriate to your operating system. Then install datasense following the instructions  at \href{https://github.com/gillespilon/datasense}{https://github.com/gillespilon/datasense}.
-Instructions on how to use datasense are provided in relevant sections of this document.
-Full documentation is available at \href{https://datasense.readthedocs.io/en/latest/}{https://datasense.readthedocs.io/en/latest/}
+% section dawgdad
+\section{dawgdad}\label{sec:dawgdad}
+\href{https://github.com/gillespilon/dawgdad}{dawgdad} (\cite{dawgdad}) is a \Gls{python} package for statistical, graphical, and predictive analysis. Instructions on how to use dawgdad are provided in relevant sections of this document. To use dawgdad, install a \Gls{python} distribution appropriate to your operating system. Then install dawgdad following the instructions  at \href{https://github.com/gillespilon/dawgdad}{https://github.com/gillespilon/dawgdad}.
+Instructions on how to use dawgdad are provided in relevant sections of this document.
+Full documentation is available at \href{https://dawgdad.readthedocs.io/en/latest/}{https://dawgdad.readthedocs.io/en/latest/}
 \newpage
 % section abbreviations
 \printunsrtglossary[type={abbreviations}]
